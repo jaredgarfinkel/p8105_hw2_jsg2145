@@ -11,3 +11,13 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
+## Homework 2
+
+### Problem 1
+
+```{r}
+mr_trash = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx") %>% 
+  janitor::clean_names()
+mr_trash
+```
+
