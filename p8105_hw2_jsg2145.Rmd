@@ -1,0 +1,13 @@
+---
+title: "p8105_hw2_jsg2145"
+author: "Jared Garfinkel"
+date: "9/27/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
