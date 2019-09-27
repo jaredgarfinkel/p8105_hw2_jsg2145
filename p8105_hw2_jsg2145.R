@@ -87,3 +87,14 @@ tbl_poly
 tbl_vol
 tbl_weight
 tbl_balls
+precip1718 %>% 
+  filter(year == 2017) %>% 
+  mutate(months = factor(month, levels = month.name)) %>% 
+  ggplot(aes(x = months, y = total)) +
+  geom_col()
+  
+precip1718 %>% 
+  filter(year == 2018) %>% 
+  mutate(months = factor(month, levels = month.name)) %>% 
+  ggplot(aes(x = months, y = total)) +
+  geom_col()
