@@ -41,3 +41,9 @@ precip_17 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xl
   mutate(year = 2017)
 ```
 
+```{r merge datasets}
+precip1718 = full_join(precip_17, precip_18) %>% 
+  mutate(
+    month = month.name[month])
+```
+
