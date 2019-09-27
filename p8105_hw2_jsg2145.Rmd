@@ -20,7 +20,10 @@ mr_trash = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xls
                               sheet = "Mr. Trash Wheel", 
                               range = readxl::cell_cols("A:N")) %>% 
   janitor::clean_names() %>% 
-  filter(!is.na(dumpster))
-mr_trash
+  filter(!is.na(dumpster)) %>% 
+  mutate(
+    sports_balls = 
+      round(sports_balls, digits = 0) %>% 
+      as.integer())
 ```
 
