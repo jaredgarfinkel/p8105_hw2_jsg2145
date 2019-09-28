@@ -84,14 +84,14 @@ mr_trash %>%
 ```{r}
 precip1718 %>% 
   filter(year == 2017) %>% 
-  mutate(months = factor(month, levels = month.name)) %>% 
-  ggplot(aes(x = months, y = total)) +
+  mutate(month = factor(month, levels = month.name)) %>% 
+  ggplot(aes(x = month, y = total)) +
   geom_col()
   
 precip1718 %>% 
   filter(year == 2018) %>% 
-  mutate(months = factor(month, levels = month.name)) %>% 
-  ggplot(aes(x = months, y = total)) +
+  mutate(month = factor(month, levels = month.name)) %>% 
+  ggplot(aes(x = month, y = total)) +
   geom_col()
 ```
 
@@ -102,10 +102,10 @@ polls = read_csv(file = "./data/pols-month.csv") %>%
   separate(mon, c("year", "month", "day"), "-") %>% 
   mutate(
     month = as.numeric(month),
-    month = month.name[month]) %>% 
-  mutate(
+    month = month.name[month],
+    month = factor(month, levels = month.name),
+    year = as.numeric(year),
     president = ifelse(prez_gop == 1, "gop", "dem")) %>% 
-  mutate(month = factor(month, levels = month.name)) %>% 
   arrange(year, month) %>% 
   select(year, month, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem, president)
 ```
@@ -116,7 +116,8 @@ snp = read_csv(file = "./data/snp.csv") %>%
   mutate(
     month = as.numeric(month),
     month = month.name[month],
-    month = factor(month, levels = month.name)) %>% 
+    month = factor(month, levels = month.name),
+    year = as.numeric(year)) %>% 
   arrange(year, month) %>% 
   select(year, month, close)
 ```
@@ -126,6 +127,14 @@ unmp = read_csv(file = "./data/unemployment.csv") %>%
   pivot_longer(c(2:13), names_to = "month") %>% 
   janitor::clean_names() %>% 
   mutate(
-    month = month.name[match(month,month.abb)])
+    month = match(month, month.abb), 
+    month = month.name[month])
+```
+
+```{r}
+join1 = full_join(polls, snp, by = c("year", "month")) %>% 
+  rename(snp_close = close)
+join2 = full_join(join1, unmp, by = c("year", "month")) %>% 
+  rename(unmp_rate = value)
 ```
 
