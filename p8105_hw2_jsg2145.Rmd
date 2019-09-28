@@ -110,3 +110,14 @@ polls = read_csv(file = "./data/pols-month.csv") %>%
   select(year, month, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem, president)
 ```
 
+```{r}
+snp = read_csv(file = "./data/snp.csv") %>% 
+  separate(date, c("month", "day", "year"), "/") %>% 
+  mutate(
+    month = as.numeric(month),
+    month = month.name[month],
+    month = factor(month, levels = month.name)) %>% 
+  arrange(year, month) %>% 
+  select(year, month, close)
+```
+
