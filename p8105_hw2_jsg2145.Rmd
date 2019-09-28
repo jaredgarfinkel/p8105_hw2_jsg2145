@@ -121,3 +121,11 @@ snp = read_csv(file = "./data/snp.csv") %>%
   select(year, month, close)
 ```
 
+```{r}
+unmp = read_csv(file = "./data/unemployment.csv") %>% 
+  pivot_longer(c(2:13), names_to = "month") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    month = month.name[match(month,month.abb)])
+```
+
