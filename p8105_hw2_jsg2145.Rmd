@@ -206,5 +206,10 @@ bbnm %>%
 
 
 ```{r}
-
+bbnm %>% 
+  filter(gender == "MALE", ethnicity == "WHITE NON HISPANIC", year == "2016") %>% 
+  mutate(Rank = rank) %>% 
+  ggplot(aes(x = Rank, y = count)) +
+  geom_point() +
+  labs(y = "Number of Boys Given a Name")
 ```
