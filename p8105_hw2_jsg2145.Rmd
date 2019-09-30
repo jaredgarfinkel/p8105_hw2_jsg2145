@@ -162,21 +162,49 @@ join2 %>%
 ```{r}
 bbnm = read_csv(file = "./data/Popular_Baby_Names.csv") %>% 
   janitor::clean_names() %>% 
+  distinct() %>% 
   rename(year = year_of_birth,
          fname = childs_first_name) %>% 
-  distinct() %>% 
+  mutate(fname = toupper(fname),
+         ethnicity = 
+           recode(ethnicity, 
+                  "ASIAN AND PACI" = "ASIAN AND PACIFIC ISLANDER",
+                  "BLACK NON HISP" = "BLACK NON HISPANIC",
+                  "WHITE NON HISP" = "WHITE NON HISPANIC")) 
+```
+
+
+```{r results = 'asis'}
+bbnm %>% 
   group_by(year, gender) %>% 
   mutate(
     rank = min_rank(desc(count))) %>% 
-  arrange(year, gender, rank)
-bbnm
+  ungroup() %>% 
+  group_by(year, count) %>% 
+  rename(Year = year,
+         Ethnicity = ethnicity,
+         Count = count,
+         Rank = rank) %>% 
+  filter(fname == "OLIVIA") %>% 
+  select(Year, Ethnicity, Count, Rank) %>% 
+  knitr::kable(caption = "Popularity of the Name Olivia")
 ```
 
 ```{r}
 bbnm %>% 
-  filter(fname == "OLIVIA" | fname == "Olivia") %>% 
-  group_by(year, gender, fname) %>% 
-  summarise() %>% 
-  toupper()
-bbnm
+  group_by(year, ethnicity) %>% 
+  filter(gender == "MALE", rank == 1) %>% 
+  rename(Year = year,
+         Ethnicity = ethnicity,
+         Count = count,
+         "First Name" = fname) %>% 
+  select(Year, Ethnicity, "First Name", Count) %>% 
+  ungroup() %>% 
+  arrange(Year, Ethnicity) %>% 
+  knitr::kable(caption = "Most Popular Names for Boys")
+```
+
+
+```{r}
+
 ```
