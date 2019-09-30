@@ -81,7 +81,7 @@ mr_trash %>%
 
 #### The precipitation data appears to show that there is less precipitation in June than in May. The total precipitation in 2018 from January to July was `r pull(precip_18, total) %>% sum()`. The total precipitation in 2017 during the same period was `r precip_17 %>% mutate(months = as.numeric(month)) %>% filter(months <= 7) %>% pull(total) %>% sum()`. 
 
-```{r}
+```{r, fig.width = 12}
 precip1718 %>% 
   filter(year == 2017) %>% 
   mutate(month = factor(month, levels = month.name)) %>% 
@@ -147,15 +147,6 @@ join2 %>%
   geom_boxplot()
 ```
 
-```{r}
-join2 %>% 
-  filter(!is.na(unmp_rate)) %>% 
-  mutate(
-    president = factor(president, levels = c("gop", "dem"))) %>% 
-  ggplot(aes(x = year, y = unmp_rate, color = president)) +
-  geom_point()
-```
-
 
 ```{r}
 join2 %>% 
@@ -164,14 +155,13 @@ join2 %>%
   geom_smooth(se = FALSE)
 ```
 
+#### The pols-months dataset gives a detailed count of the republican and democratic senators, representatives, and governors. There were `r nrow(polls)` months of data, with `r ncol(polls)` variables. The snp dataset is the closing price of the S&P 500 for each month from `r min(pull(snp, year))` to `r max(pull(snp, year))`. The S&P 500 rose since the beginning of the data collection. The unemployment dataset gives the unemployment rate for each month from `r min(pull(unmp, year))` to `r max(pull(unmp, year))`. The three datasets together cover the period from `r min(pull(unmp, year))` to `r max(pull(unmp, year))`. The dataframe is `r nrow(join2)` rows by `r ncol(join2)` columns. A visual above shows the changes to the unemployment rate in years during which the president was from the Democratic Party or the GOP. The average unemployment rate over the period of data collection is `r mean(pull(unmp, value), na.rm = TRUE)`.
+
+## Problem 3
+
 ```{r}
-join2 %>% 
-  filter(!is.na(gov_dem)) %>% 
-  mutate(
-    president = factor(president, levels = c("gop", "dem"))) %>% 
-  ggplot(aes(x = year, y = gov_dem, color = president)) +
-  geom_point(se = FALSE) +
-  geom_abline(aes(intercept = 25, slope = 0))
+bbnm = read_csv(file = "./data/Popular_Baby_Names.csv") %>% 
+  janitor::clean_names() %>% 
+  distinct()
 ```
 
-#### The pols-months dataset gives a detailed count of the republican and democratic senators, representatives, and governors. There were `r nrow(polls)` months of data, with `r ncol(polls)` variables. The snp dataset is the closing price of the S&P 500 for each month from `r min(pull(snp, year))` to `r max(pull(snp, year))`. The S&P 500 rose since the beginning of the data collection. The unemployment dataset gives the unemployment rate for each month from `r min(pull(unmp, year))` to `r max(pull(unmp, year))`. The average unemployment rate over the period of data collection was `r mean(pull(unmp, value))`.
