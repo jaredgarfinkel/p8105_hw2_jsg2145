@@ -204,7 +204,31 @@ join2 %>%
   geom_smooth(se = FALSE)
 ```
 
-#### The pols-months dataset gives a detailed count of the republican and democratic senators, representatives, and governors. There were `r nrow(polls)` months of data, with `r ncol(polls)` variables. The snp dataset is the closing price of the S&P 500 for each month from `r min(pull(snp, year))` to `r max(pull(snp, year))`. The S&P 500 rose since the beginning of the data collection. The unemployment dataset gives the unemployment rate for each month from `r min(pull(unmp, year))` to `r max(pull(unmp, year))`. The three datasets together cover the period from `r min(pull(unmp, year))` to `r max(pull(unmp, year))`. The dataframe is `r nrow(join2)` rows by `r ncol(join2)` columns. A visual above shows the changes to the unemployment rate in years during which the president was from the Democratic Party or the GOP. The average unemployment rate over the period of data collection is `r mean(pull(unmp, value), na.rm = TRUE)`.
+#### Problem 2 summary
+
+The pols-months dataset gives a detailed count of the republican and 
+
+democratic senators, representatives, and governors. There were `r nrow(polls)` 
+
+months of data, with `r ncol(polls)` variables. The snp dataset is 
+
+the closing price of the S&P 500 for each month from `r min(pull(snp, year))` to `r max(pull(snp, year))`. 
+
+The S&P 500 rose since the beginning of the 
+
+data collection. The unemployment dataset gives the unemployment rate for 
+
+each month from `r min(pull(unmp, year))` to `r max(pull(unmp, year))`. 
+
+The three datasets together cover the period from `r min(pull(unmp, year))` to `r max(pull(unmp, year))`. 
+
+The dataframe is `r nrow(join2)` rows by `r ncol(join2)` columns. A visual above shows 
+
+the changes to the unemployment rate in years during which the president was from the 
+
+Democratic Party or the GOP. The average unemployment rate over the period of 
+
+data collection is `r mean(pull(unmp, value), na.rm = TRUE)`.
 
 ## Problem 3
 
