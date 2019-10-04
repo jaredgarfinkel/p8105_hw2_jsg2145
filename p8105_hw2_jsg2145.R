@@ -98,3 +98,16 @@ precip1718 %>%
   mutate(months = factor(month, levels = month.name)) %>% 
   ggplot(aes(x = months, y = total)) +
   geom_col()
+
+
+mr_trash %>% 
+  ggplot(aes(x = year, y = sports_balls+glass_bottles+plastic_bottles)) +
+  geom_col()
+
+mr_trash %>% 
+  ggplot(aes(x = year, y = plastic_bottles)) +
+  geom_col()
+
+mr_trash %>% 
+  ggplot(aes(x = year, y = homes_powered)) +
+  geom_col()
